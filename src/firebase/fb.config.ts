@@ -17,7 +17,7 @@ export const storage = getStorage(app)
 
 
 export async function uploadFile(file){    
-    console.log("ARCHIVO: ",file)
+    //console.log("ARCHIVO: ",file)
     
     const storageRef = ref(storage,v4())
     const metadata = {
