@@ -8,6 +8,6 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe())
   const document = SwaggerModule.createDocument(app,config)
   SwaggerModule.setup('api-docs',app,document,options)
-  await app.listen(3000);
+  await app.listen(process.env.PORT);
 }
 bootstrap();

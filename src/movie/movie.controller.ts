@@ -6,7 +6,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateMovieDTO } from './dto/create-movie.dto';
 import { UpdateMovieDTO } from './dto/update-movie.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiBearerAuth,ApiOperation, ApiParam, ApiResponse, ApiTags, getSchemaPath } from '@nestjs/swagger';
+import { ApiBearerAuth,ApiOperation, ApiParam, ApiResponse, ApiTags,ApiConsumes,ApiBody } from '@nestjs/swagger';
 
 
 @ApiBearerAuth()
@@ -94,6 +94,25 @@ export class MovieController {
     @ApiOperation({
         summary:"Agrega una nueva pelicula"
     })
+    @ApiConsumes('multipart/form-data')
+    @ApiBody({
+        schema: {
+          type: 'object',
+          properties: {
+            title: { type: 'string'},
+            description: { type: 'string' },
+            director: { type: 'string' },
+            imgMovie: {
+                type: 'string',
+                format: 'binary',
+              },
+            releasedate: { type: 'string' },
+            category: { type: 'string',enum:['Adventure','Horror','Action','Fantasy'] },
+            
+          },
+        },
+        "required":true
+      })
     @ApiResponse(
         {   status: 201, 
             description: 'La respuesta contiene un objeto con los datos de la pelicula que se agregó', 
